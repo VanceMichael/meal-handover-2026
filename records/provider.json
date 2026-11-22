@@ -1,0 +1,99 @@
+{
+  "stages": {
+    "before-close": [
+      {
+        "path": "/kitchen/shift",
+        "body": [
+          {
+            "site": "A",
+            "meal": "lunch",
+            "state": "open"
+          },
+          {
+            "site": "B",
+            "meal": "lunch",
+            "state": "open"
+          }
+        ]
+      },
+      {
+        "path": "/kitchen/receipts",
+        "body": [
+          {
+            "person": "K1",
+            "state": "accepted",
+            "receipt": "K-1"
+          },
+          {
+            "person": "K5",
+            "state": "needs-review"
+          }
+        ],
+        "query": {
+          "batch": "M1"
+        }
+      }
+    ],
+    "after-close": [
+      {
+        "path": "/kitchen/shift",
+        "body": [
+          {
+            "site": "A",
+            "meal": "lunch",
+            "state": "closed"
+          },
+          {
+            "site": "B",
+            "meal": "lunch",
+            "state": "open"
+          }
+        ]
+      },
+      {
+        "path": "/kitchen/receipts",
+        "body": [
+          {
+            "person": "K1",
+            "state": "accepted",
+            "receipt": "K-1"
+          },
+          {
+            "person": "K5",
+            "state": "duplicate",
+            "receipt": "K-2"
+          }
+        ],
+        "query": {
+          "batch": "M1"
+        }
+      },
+      {
+        "path": "/kitchen/adjustments",
+        "body": [
+          {
+            "person": "K5",
+            "site": "A",
+            "base": "K-2",
+            "state": "received"
+          }
+        ]
+      }
+    ],
+    "settled": [
+      {
+        "path": "/kitchen/adjustments",
+        "body": [
+          {
+            "person": "K5",
+            "site": "A",
+            "base": "K-2",
+            "state": "settled",
+            "receipt": "K-3"
+          }
+        ]
+      }
+    ]
+  },
+  "common": []
+}
