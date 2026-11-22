@@ -105,11 +105,13 @@ async function changeForm(request, response, url, edition, changes) {
   const item = Object.fromEntries(['edition', 'scope', 'ref', 'value', 'action'].map(name => [name, form.get(name)]))
   if (item.edition !== edition.edition) return html(response, 409, '<p>资料版已更换</p><a href="/desk">返回</a>')
   if (![item.scope, item.ref, item.value].every(Boolean)) return html(response, 422, '<p>资料不全</p>')
-  const key = JSON.stringify([item.scope, item.ref])
+  const [site, mealType, trailing] = item.value.split(':')
+  if (!site || !mealType || trailing !== undefined) return html(response, 422, '<p>责任点与餐型格式为地点:餐型</p>')
+  const key = JSON.stringify([item.scope, site, item.ref])
   const current = changes.get(key)
   if (source.portal.initialLock) {
     const [stream, scope, reference, status, locked] = source.portal.initialLock
-    const row = edition.streams[stream].find(row => (scope === null || row[scope] === item.scope) && row[reference] === item.ref && row[status] === locked)
+    const row = edition.streams[stream].find(row => (scope === null || row[scope] === item.scope) && row[1] === site && row[reference] === item.ref && row[status] === locked)
     if (row) return browserPage(response, url, edition, changes, '该记录已经由业务方确认')
   }
   const exactDraft = current?.value === item.value && current.edition === item.edition
