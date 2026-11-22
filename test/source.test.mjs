@@ -54,7 +54,7 @@ test('柜台操作逐行回读，确认后的记录不会由重办覆盖', async
     await page.getByRole('button', { name: action, exact: true }).click()
   }
   await send('M1', 'A:special', '暂存')
-  assert.match(await page.locator('p[role="status"]').textContent(), /已由业务方确认/)
+  assert.match(await page.locator('p[role="status"]').textContent(), /已经由业务方确认/)
   await send('M2', 'B:regular', '暂存')
   await send('M2', 'B:regular', '校验')
   await send('M2', 'B:regular', '确认')
