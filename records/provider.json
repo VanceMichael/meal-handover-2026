@@ -20,17 +20,17 @@
         "path": "/kitchen/receipts",
         "body": [
           {
-            "person": "K1",
+            "person": "M1",
             "state": "accepted",
             "receipt": "K-1"
           },
           {
-            "person": "K5",
+            "person": "M2",
             "state": "needs-review"
           }
         ],
         "query": {
-          "batch": "M1"
+          "batch": "DA"
         }
       }
     ],
@@ -54,25 +54,25 @@
         "path": "/kitchen/receipts",
         "body": [
           {
-            "person": "K1",
+            "person": "M1",
             "state": "accepted",
             "receipt": "K-1"
           },
           {
-            "person": "K5",
+            "person": "M2",
             "state": "duplicate",
             "receipt": "K-2"
           }
         ],
         "query": {
-          "batch": "M1"
+          "batch": "DA"
         }
       },
       {
         "path": "/kitchen/adjustments",
         "body": [
           {
-            "person": "K5",
+            "person": "M2",
             "site": "A",
             "base": "K-2",
             "state": "received"
@@ -85,7 +85,7 @@
         "path": "/kitchen/adjustments",
         "body": [
           {
-            "person": "K5",
+            "person": "M2",
             "site": "A",
             "base": "K-2",
             "state": "settled",

@@ -17,7 +17,7 @@ function post(root, endpoint, value) {
 
 test('本批实际回执分行，关单和补单分别变化', async t => {
   const root = await listen(t)
-  const first = await (await fetch(root + '/kitchen/receipts?batch=M1')).json()
+  const first = await (await fetch(root + '/kitchen/receipts?batch=DA')).json()
   assert.deepEqual(first.map(row => row.state), ['accepted', 'needs-review'])
   await post(root, '/lab?stage=after-close')
   assert.equal((await (await fetch(root + '/kitchen/shift')).json())[1].state, 'open')
